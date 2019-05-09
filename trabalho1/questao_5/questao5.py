@@ -23,7 +23,7 @@ def fb(p_n, p_n1, p_n2, a):
 
 #%%
     
-precisao = np.float128
+precisao = np.float64
 
 #Condições iniciais
 condicoes_iniciais = np.array([-6.0, 1.0, 2.5, -3.0], precisao)
@@ -55,7 +55,7 @@ for n in range(n_steps-4):
 
 
 #plota resultados (função de quarta ordem)  
-pl.figure(figsize=(10,5))
+pl.figure(figsize=(8,5))
 pl.plot(p, 'ro-', label='a = '+str(a))
 pl.xlabel("$n$")
 pl.ylabel("$p_n$")
@@ -66,7 +66,7 @@ pl.show()
 
 
 #plota resultados (equação relacionada)  
-pl.figure(figsize=(10,5))
+pl.figure(figsize=(8,5))
 pl.plot(q, 'go-', label='a = '+str(a))
 pl.xlabel("$n$")
 pl.ylabel("$p_n$")
@@ -91,12 +91,13 @@ for i in range(len(valores_a)):
     x = np.zeros([n_steps - len(condicoes_iniciais)], precisao)
     x = np.insert(x, 0, condicoes_iniciais)
     p_list.append(x)
-    q_list.append(x)
+    q_list.append(np.copy(x))
     
 #percorre os valores de a
 for i in range(len(valores_a)):
     #transfere o array da lista pra variavel local
     p = p_list[i]
+    q = q_list[i]
     
     #transfere o valor de a pra variavel local
     a = valores_a[i]
@@ -104,15 +105,26 @@ for i in range(len(valores_a)):
     #iterador
     for n in range(n_steps-4):
         p[n+4] = fa(p[n], p[n+1], p[n+2], p[n+3], a)
+        q[n+4] = fb(q[n], q[n+1], q[n+2], a)
         
     #plota resultados (função de quarta ordem)  
-    pl.figure(figsize=(10,5))
+    pl.figure(figsize=(8,5))
     pl.plot(p, 'ro-', label='a = '+str(a))
     pl.xlabel("$n$")
     pl.ylabel("$p_n$")
     pl.title(u"Função de Quarta Ordem")
     pl.legend()
     pl.savefig('q5_pergunta2_f4_a='+str(a)+'_.png', dpi=100)
+    pl.show()
+    
+    #plota resultados (equação relacionada)  
+    pl.figure(figsize=(8,5))
+    pl.plot(q, 'go-', label='a = '+str(a))
+    pl.xlabel("$n$")
+    pl.ylabel("$p_n$")
+    pl.title(u"Equação relacionada")
+    pl.legend()
+    pl.savefig('q5_pergunta2_er_a='+str(a)+'_.png', dpi=100)
     pl.show()
         
 

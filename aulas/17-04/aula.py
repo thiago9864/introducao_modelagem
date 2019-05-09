@@ -27,7 +27,7 @@ x = np.zeros(n_steps)
 
 alpha = 0.55
 x[0]=alpha
-r = 3.83
+r = 2.83
 
 fun = f_02
 
