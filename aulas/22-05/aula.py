@@ -30,7 +30,7 @@ for s in solutions:
     display(s)
     display(J.subs(s))
     P, L = J.subs(s).diagonalize()
-    display(L)
+    #display(L)
     
     for i in range(L.shape[0]):
         print('autovalor: ', i, L[i,i].subs(p))
@@ -46,7 +46,7 @@ for s in solutions:
 n_steps = 30
 n_var = u.shape[0]
 
-u0 = [149, 201]
+u0 = [150, 201]
 w= np.zeros((n_steps, n_var))
 w[0] = u0
 
